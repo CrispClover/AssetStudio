@@ -1,0 +1,24 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "CrispAssetStudio",
+	"Description": "A plugin to help you show off all those awesome assets you create in Unreal.",
+	"Category": "Other",
+	"CreatedBy": "Crisp Clover",
+	"CreatedByURL": "https://twitter.com/crispclover",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "https://github.com/CrispClover/AssetStudio",
+	"CanContainContent": true,
+	"IsBetaVersion": true,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "CrispAssetStudio",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	]
+}
