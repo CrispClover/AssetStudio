@@ -9,7 +9,7 @@ You may copy the code/blueprints into your own projects, but make sure to credit
 
 
 
-If you encounter bugs, or need support in rebuilding the plugin for a different engine version feel free to let me know:
+If you encounter bugs, or need support in rebuilding the plugin for a different engine version than UE5.0 feel free to let me know:
 
 [Twitter](https://twitter.com/crispclover)
 
