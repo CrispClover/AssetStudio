@@ -4,12 +4,14 @@ This is a small toolset to help you when setting up scenes in Unreal. Originally
 
 You can make your own light presets in the data table found in the "Setup" folder.
 
+## Installation
+You can find the pre-built plugin [here](https://drive.google.com/drive/folders/1_2n1ygZ--vBhWqp2QDwGngPSjzT-nWI2?usp=sharing). You can copy it into your project's plugin folder, or into the engine's plugin folder if you want to use it across multiple projects.
+
+## Feedback / Bugs / (Copyright)
 Feedback and contributions are welcome. I might release updates if I get to it.
-You may copy the code/blueprints into your own projects, but make sure to credit me somewhere visible if you do.
+You may copy the code/blueprints into your own projects, but make sure to credit me somewhere visible if you do. *(It's nothing special at all, so you probably won't need to copy any of it anyways)*
 
-
-
-If you encounter bugs, or need support in rebuilding the plugin for a different engine version than UE5.0 feel free to let me know:
+If you encounter bugs, or need support in rebuilding the plugin for a different engine version feel free to let me know:
 
 [Twitter](https://twitter.com/crispclover)
 
