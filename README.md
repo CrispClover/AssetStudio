@@ -2,6 +2,8 @@
 
 This is a small toolset to help you when setting up scenes in Unreal. Originally made for my own portfolio work, things got a bit out of hand and I figured other people might find this useful, maybe even for setting up lighting in cinematic shots.
 
+You can make your own light presets in the data table found in the "Setup" folder.
+
 Feedback and contributions are welcome. I might release updates if I get to it.
 You may copy the code/blueprints into your own projects, but make sure to credit me somewhere visible if you do.
 
