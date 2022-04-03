@@ -7,6 +7,15 @@ You can make your own light presets in the data table found in the "Setup" folde
 ## Installation
 You can find the pre-built plugin [here](https://drive.google.com/drive/folders/1_2n1ygZ--vBhWqp2QDwGngPSjzT-nWI2?usp=sharing). You can copy it into your project's plugin folder, or into the engine's plugin folder if you want to use it across multiple projects.
 
+## Usage
+
+I am working on a UI update right now, and will update this section as time goes on.
+
+### Getting started
+First, open the Map called "Studio" located in the main folder, then run the Editor Utility Widget, also located in the main folder. An Actor to display a Static Mesh is already located in the Level - you can set the mesh to be displayed using the Editor Widget. (You might have to scroll down to see the details of the Mesh Actor).
+
+You can find all the Blueprints in the "BPs"-Folder. For now you'll have to explore the options in the Widget by yourself. Update coming soon!
+
 ## Feedback / Bugs / (Copyright)
 Feedback and contributions are welcome. I might release updates if I get to it.
 You may copy the code/blueprints into your own projects, but make sure to credit me somewhere visible if you do. *(It's nothing special at all, so you probably won't need to copy any of it anyways)*
