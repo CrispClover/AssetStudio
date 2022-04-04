@@ -16,6 +16,11 @@ First, open the Map called "Studio" located in the main folder, then run the Edi
 
 You can find all the Blueprints in the "BPs"-Folder. For now you'll have to explore the options in the Widget by yourself. Update coming soon!
 
+### Rendering
+I've included some default level sequences to help you with making videos and images. I kept them as minimalistic as possible.
+
+I recommend making "screenshots" using the Movie Render Queue, this gives you much better anti-aliasing results than any high-resolution screenshot.
+
 ## Feedback / Bugs / (Copyright)
 Feedback and contributions are welcome. I might release updates if I get to it.
 You may copy the code/blueprints into your own projects, but make sure to credit me somewhere visible if you do. *(It's nothing special at all, so you probably won't need to copy any of it anyways)*
