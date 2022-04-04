@@ -12,7 +12,7 @@ You can find the pre-built plugin [here](https://drive.google.com/drive/folders/
 I will make a tutorial video in the very near future.
 
 ### Getting started
-First, open the Map called "Studio" located in the main folder, then run the Editor Utility Widget, also located in the main folder. An Actor to display a Static Mesh is already located in the Level - you can set the mesh to be displayed using the Editor Widget. (You might have to scroll down to see the details of the Mesh Actor).
+First, open the Map called "Studio" located in the main folder, then run the Editor Utility Widget, also located in the main folder. An Actor to display a Static Mesh is already located in the Level - you can set the mesh to be displayed using the Editor Widget under the "Meshes" tab.
 
 You can find all the Blueprints in the "BPs"-Folder. For now you'll have to explore the options in the Widget by yourself. Update coming soon!
 
