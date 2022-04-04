@@ -14,7 +14,7 @@ I will make a tutorial video in the very near future.
 ### Getting started
 First, open the Map called "Studio" located in the main folder, then run the Editor Utility Widget, also located in the main folder. An Actor to display a Static Mesh is already located in the Level - you can set the mesh to be displayed using the Editor Widget under the "Meshes" tab.
 
-You can find all the Blueprints in the "BPs"-Folder. For now you'll have to explore the options in the Widget by yourself. Update coming soon!
+You can find all the Blueprints in the "BPs"-Folder. For now you'll have to explore the options in the widget by yourself. Update coming soon!
 
 ### Rendering
 I've included some default level sequences to help you with making videos and images. I kept them as minimalistic as possible.
