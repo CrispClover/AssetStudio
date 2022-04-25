@@ -38,6 +38,12 @@ public class CrispAssetStudio : ModuleRules
 				"Engine",
 				"Slate",
 				"SlateCore",
+				"UnrealEd",
+				"Blutility",
+				"UMG",
+				"EditorSubsystem",
+				"UMGEditor",
+				"CinematicCamera",
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);
