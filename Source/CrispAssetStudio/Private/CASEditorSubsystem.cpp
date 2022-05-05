@@ -14,6 +14,7 @@
 #include "Engine/Selection.h"
 #include "EditorScriptingHelpers.h"
 #include "EngineUtils.h"
+#include "Kismet/KismetMathLibrary.h"
 #include "Kismet/DataTableFunctionLibrary.h"
 #include "CASEditorSubsystem.h"
 
@@ -96,6 +97,44 @@ ECASType UCASEditorSubsystem::GetCASType(AActor* actor)
 		return ECASType::none;
 }
 
+FRotator UCASEditorSubsystem::GetBaseRotator(USceneComponent* refComp, AActor* target)
+{
+	if (!refComp)
+		return FRotator();
+
+	FRotator baseRot = FRotator();
+	FVector basePos;
+	FVector compPos;
+
+	if (target && (RotCalcType == ERotCalcType::PlanarPos || RotCalcType == ERotCalcType::ThreeDPos))
+		basePos = target->GetActorLocation();
+
+	switch (RotCalcType)
+	{
+	case ERotCalcType::PlanarRot:
+		baseRot = FRotator(0, refComp->GetComponentRotation().Yaw, 0);
+		break;
+
+	case ERotCalcType::PlanarPos:
+		compPos = refComp->GetComponentLocation();
+		compPos.Z = basePos.Z = 0;
+		baseRot = UKismetMathLibrary::FindLookAtRotation(compPos, basePos);
+		baseRot = FRotator(0, baseRot.Yaw, 0);
+		break;
+
+	case ERotCalcType::ThreeDRot:
+		baseRot = refComp->GetComponentRotation();
+		break;
+
+	case ERotCalcType::ThreeDPos:
+		compPos = refComp->GetComponentLocation();
+		baseRot = UKismetMathLibrary::FindLookAtRotation(compPos, basePos);
+		break;
+	}
+
+	return baseRot;
+}
+
 void UCASEditorSubsystem::OnLevelActorAdded(AActor* actor)
 {
 	ActorAddedEvent.Broadcast(actor);
@@ -108,7 +147,7 @@ void UCASEditorSubsystem::OnLevelActorDeleted(AActor* actor)
 
 TArray<AActor*> UCASEditorSubsystem::GetRelevantActors()
 {
-	if (!EditorScriptingHelpers::CheckIfInEditorAndPIE() || !GEditor)//is check needed?
+	if (!EditorScriptingHelpers::CheckIfInEditorAndPIE() || !GEditor)
 		return TArray<AActor*>();
 
 	TGuardValue<bool> UnattendedScriptGuard(GIsRunningUnattendedScript, true);
@@ -158,7 +197,7 @@ TArray<AActor*> UCASEditorSubsystem::GetSelectedActors()
 
 void UCASEditorSubsystem::CreateGroup(TSubclassOf<ACASGroupRep> GroupClass)
 {
-	if (!EditorScriptingHelpers::CheckIfInEditorAndPIE() || !GEditor)//is check needed?
+	if (!EditorScriptingHelpers::CheckIfInEditorAndPIE() || !GEditor)
 		return;
 
 	UWorld* world = GEditor->GetEditorWorldContext(false).World();
@@ -170,7 +209,7 @@ void UCASEditorSubsystem::CreateGroup(TSubclassOf<ACASGroupRep> GroupClass)
 	rep->LightsData.Reserve(selectedLights.Num());
 
 	for (ALight* light : selectedLights)
-		rep->LightsData.Add(FCASLightData(light));
+		rep->LightsData.Add(FLightData(light));
 
 	rep->SetFolderPath(FName("CASGroups"));
 }

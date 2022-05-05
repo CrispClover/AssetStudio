@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "CASLocalLight.h"
+#include "Components/SpotLightComponent.h"
 #include "CASSpotLight.generated.h"
 
 /**

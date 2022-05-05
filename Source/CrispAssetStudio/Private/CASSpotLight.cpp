@@ -3,7 +3,6 @@
 
 #include "CASSpotLight.h"
 #include "Components/ArrowComponent.h"
-#include "Components/SpotLightComponent.h"
 
 ACASSpotLight::ACASSpotLight(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer.SetDefaultSubobjectClass<USpotLightComponent>(TEXT("LightComponent0")))

@@ -2,6 +2,7 @@
 
 #include "CASDetailsWidget.h"
 #include "Engine/Light.h"
+#include "CASLocalLight.h"
 #include "Components/LightComponent.h"
 #include "Components/SkyLightComponent.h"
 #include "CASSkyLight.h"
@@ -18,9 +19,15 @@ void UCASDetailsWidget::NativeConstruct()
 	if (Actor)
 		ActorView->SetObject(Actor);
 
+	if (ACASLocalLight* casLight = Cast<ACASLocalLight>(Actor))
+	{
+		ActorView->PropertiesToShow.Add(FName("Pitch"));
+		ActorView->PropertiesToShow.Add(FName("Yaw"));
+	}
+
 	if (ALight* light = Cast<ALight>(Actor))
 		ComponentView->SetObject(light->GetLightComponent());
-	else if(ASkyLight* skyLight = Cast<ASkyLight>(Actor))
+	else if (ASkyLight* skyLight = Cast<ASkyLight>(Actor))
 		ComponentView->SetObject(skyLight->GetLightComponent());
 	else
 		ComponentView->RemoveFromParent();

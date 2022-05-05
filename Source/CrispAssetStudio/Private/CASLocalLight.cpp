@@ -1,7 +1,7 @@
 // Copyright Crisp Clover. Feel free to copy.
 
 #include "CASLocalLight.h"
-#include "Components/RectLightComponent.h"
+#include "Kismet/KismetMathLibrary.h"
 
 ACASLocalLight::ACASLocalLight(const FObjectInitializer& ObjectInitializer)
 	:Super(ObjectInitializer.SetDefaultSubobjectClass<ULocalLightComponent>(TEXT("LightComponent0")))
@@ -25,13 +25,31 @@ void ACASLocalLight::OnConstruction(const FTransform& transform)
 	ApplyProperties();
 }
 
-void ACASLocalLight::SetDistance(float newDistance)
+void ACASLocalLight::SetDistance()
 {
-	GetLightComponent()->SetRelativeLocation(FVector(-newDistance, 0, 0));
+	GetLightComponent()->SetRelativeLocation(FVector(-Distance, 0, 0));
+}
+
+void ACASLocalLight::SetRotation()
+{
+	FRotator rot;
+
+	if (bYawIsFlipped)
+		rot = UKismetMathLibrary::ComposeRotators(FRotator(Pitch, -Yaw, 0), UKismetMathLibrary::ComposeRotators(BaseRotation, FRotator(TypeRotation.Pitch, -TypeRotation.Yaw, TypeRotation.Roll)));
+	else
+		rot = UKismetMathLibrary::ComposeRotators(FRotator(Pitch, Yaw, 0), UKismetMathLibrary::ComposeRotators(BaseRotation, TypeRotation));
+
+	SetActorRelativeRotation(rot);
+}
+
+void ACASLocalLight::Flip()
+{
+	bYawIsFlipped = !bYawIsFlipped;
+	SetRotation();
 }
 
 void ACASLocalLight::ApplyProperties()
 {
-	SetDistance(Distance);
-	SetActorRotation(FRotator(Pitch, Yaw, 0));
+	SetDistance();
+	SetRotation();
 }

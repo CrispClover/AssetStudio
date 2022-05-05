@@ -1,6 +1,5 @@
 // Copyright Crisp Clover. Feel free to copy.
 
-
 #include "CASRectLight.h"
 
 ACASRectLight::ACASRectLight(const FObjectInitializer& ObjectInitializer)

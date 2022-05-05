@@ -8,6 +8,7 @@
 #include "Components/HorizontalBoxSlot.h"
 #include "Engine/Light.h"
 #include "Kismet/DataTableFunctionLibrary.h"
+#include "CASLocalLight.h"
 
 void UCASControlWidget::SynchronizeProperties()
 {
@@ -37,6 +38,15 @@ void UCASControlWidget::NativeConstruct()
 void UCASControlWidget::RespondToActorAdded(AActor* actor)
 {
 	AddDetailsWidget(actor);
+}
+
+void UCASControlWidget::FlipMultiple()
+{
+	for (ALight* light : CAS->GetSelectedLights())//TODO: Move to Subsystem
+	{
+		if (ACASLocalLight* casLight = Cast<ACASLocalLight>(light))
+			casLight->Flip();
+	}
 }
 
 void UCASControlWidget::DetachMultiple()
@@ -104,6 +114,10 @@ void UCASControlWidget::BuildWidget()
 		UButton* group = BuildButton(FText::FromString("Create Group"), UButton::StaticClass());
 		group->OnClicked.AddDynamic(this, &UCASControlWidget::CreateGroup);
 		PluginControlsBox->AddChildToWrapBox(group);
+
+		UButton* flip = BuildButton(FText::FromString("Flip Selected"), UButton::StaticClass());
+		flip->OnClicked.AddDynamic(this, &UCASControlWidget::FlipMultiple);
+		PluginControlsBox->AddChildToWrapBox(flip);
 
 	}
 

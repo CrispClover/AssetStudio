@@ -13,15 +13,6 @@
 #include "Components/WrapBox.h"
 #include "CASControlWidget.generated.h"
 
-UENUM(BlueprintType)
-enum class ERotCalcType : uint8
-{
-	PlanarRot	UMETA(DisplayName = "Planar Rotation", Description = "Rotation is best used when tracking (dolly). Planar calculations assume the scene to be horizontal."),
-	PlanarPos	UMETA(DisplayName = "Planar Position", Description = "Position should be used when panning. Planar calculations assume the scene to be horizontal."),
-	ThreeDRot	UMETA(DisplayName = "3D Rotation", Description = "Rotation is best used when tracking (dolly)."),
-	ThreeDPos	UMETA(DisplayName = "3D Position", Description = "Position should be used when panning."),
-};
-
 /**
  * 
  */
@@ -70,6 +61,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "CAS")
 		void RespondToActorAdded(AActor* Actor);
+
+	UFUNCTION(BlueprintCallable, Category = "CAS")
+		void FlipMultiple();
 
 	UFUNCTION(BlueprintCallable, Category = "CAS")
 		void DetachMultiple();
