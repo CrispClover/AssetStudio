@@ -107,10 +107,6 @@ void UCASControlWidget::BuildWidget()
 		UEditorUtilityWidget* lb = CreateWidget<UCASSpawnBaseWidget>(GetWorld(), LightSpawnClass);
 		PluginControlsBox->AddChildToWrapBox(lb);
 
-		UButton* detach = BuildButton(FText::FromString("Detach Selected"), UButton::StaticClass());
-		detach->OnClicked.AddDynamic(this, &UCASControlWidget::DetachMultiple);
-		PluginControlsBox->AddChildToWrapBox(detach);
-
 		UButton* group = BuildButton(FText::FromString("Create Group"), UButton::StaticClass());
 		group->OnClicked.AddDynamic(this, &UCASControlWidget::CreateGroup);
 		PluginControlsBox->AddChildToWrapBox(group);
@@ -118,6 +114,10 @@ void UCASControlWidget::BuildWidget()
 		UButton* flip = BuildButton(FText::FromString("Flip Selected"), UButton::StaticClass());
 		flip->OnClicked.AddDynamic(this, &UCASControlWidget::FlipMultiple);
 		PluginControlsBox->AddChildToWrapBox(flip);
+
+		UButton* detach = BuildButton(FText::FromString("Detach Selected"), UButton::StaticClass());
+		detach->OnClicked.AddDynamic(this, &UCASControlWidget::DetachMultiple);
+		PluginControlsBox->AddChildToWrapBox(detach);
 
 	}
 

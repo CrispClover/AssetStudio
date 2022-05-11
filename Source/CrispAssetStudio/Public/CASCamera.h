@@ -26,10 +26,10 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "CAS")
 		UMaterialInstanceDynamic* RefDynamicInstance = nullptr;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CAS")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CAS", meta = (UIMin = 0))
 		float Distance = 200.f;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CAS|Reference")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CAS|Reference", meta = (UIMin = 0.f, UIMax = 1.f))
 		float Alpha = 1.f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CAS|Reference")

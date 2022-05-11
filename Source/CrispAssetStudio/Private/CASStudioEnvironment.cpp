@@ -13,7 +13,7 @@ ACASStudioEnvironment::ACASStudioEnvironment(const FObjectInitializer& ObjectIni
 	Sky->Mobility = EComponentMobility::Static;
 	Sky->SetGenerateOverlapEvents(false);
 	Sky->bUseDefaultCollision = true;
-	Sky->AttachToComponent(RootComponent, FAttachmentTransformRules::SnapToTargetIncludingScale);
+	Sky->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 	Sky->SetWorldScale3D(FVector(120, 120, 120));
 
 	Floor = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Floor"));
@@ -21,7 +21,7 @@ ACASStudioEnvironment::ACASStudioEnvironment(const FObjectInitializer& ObjectIni
 	Floor->Mobility = EComponentMobility::Static;
 	Floor->SetGenerateOverlapEvents(false);
 	Floor->bUseDefaultCollision = true;
-	Floor->AttachToComponent(RootComponent, FAttachmentTransformRules::SnapToTargetIncludingScale);
+	Floor->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 }
 
 void ACASStudioEnvironment::BeginPlay()

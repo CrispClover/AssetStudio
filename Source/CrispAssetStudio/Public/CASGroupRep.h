@@ -8,7 +8,7 @@
 #include "CASGroupRep.generated.h"
 
 USTRUCT(BlueprintType)
-struct FLightData
+struct FCASLightData
 {
 	GENERATED_USTRUCT_BODY()
 
@@ -25,13 +25,13 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CAS")
 		float OriginalYaw;
 
-	FLightData()
+	FCASLightData()
 	{
 		Light = nullptr;
 		OriginalColour = FLinearColor();
 	}
 
-	FLightData(ALight* light)
+	FCASLightData(ALight* light)
 	{
 		Light = light;
 		OriginalColour = light->GetLightColor();
@@ -53,25 +53,28 @@ public:
 	virtual void OnConstruction(const FTransform& transform) override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Studio")
-		TArray<FLightData> LightsData;
+		TArray<FCASLightData> LightsData;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CAS")
 		FLinearColor Colour;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CAS", meta = (UIMin = -360, UIMax = 360))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Studio", meta = (UIMin = -360, UIMax = 360))
 		float Pitch;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CAS", meta = (UIMin = -360, UIMax = 360))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Studio", meta = (UIMin = -360, UIMax = 360))
 		float Yaw;
 
 	UFUNCTION(BlueprintCallable, Category = "CAS")
 		void RespondToActorDeleted(AActor* Actor);
 
 	UFUNCTION(BlueprintCallable, Category = "CAS")
+		void Add(ALight* Light);
+
+	UFUNCTION(BlueprintCallable, Category = "CAS")
+		void Remove(ALight* Light);
+
+	UFUNCTION(BlueprintCallable, Category = "CAS")
 		void Apply();
 
 	virtual void Destroyed() override;
-
-public:
-
 };

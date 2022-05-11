@@ -32,14 +32,8 @@ void ACASLocalLight::SetDistance()
 
 void ACASLocalLight::SetRotation()
 {
-	FRotator rot;
-
-	if (bYawIsFlipped)
-		rot = UKismetMathLibrary::ComposeRotators(FRotator(Pitch, -Yaw, 0), UKismetMathLibrary::ComposeRotators(BaseRotation, FRotator(TypeRotation.Pitch, -TypeRotation.Yaw, TypeRotation.Roll)));
-	else
-		rot = UKismetMathLibrary::ComposeRotators(FRotator(Pitch, Yaw, 0), UKismetMathLibrary::ComposeRotators(BaseRotation, TypeRotation));
-
-	SetActorRelativeRotation(rot);
+	int32 yM = -(int32)bYawIsFlipped * 2 + 1;//-1 when flipped, 1 when not flipped
+	SetActorRelativeRotation(UKismetMathLibrary::ComposeRotators(FRotator(TypeRotation.Pitch + Pitch, yM * (TypeRotation.Yaw + Yaw), TypeRotation.Roll), BaseRotation));
 }
 
 void ACASLocalLight::Flip()

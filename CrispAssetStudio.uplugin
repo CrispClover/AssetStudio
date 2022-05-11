@@ -3,7 +3,7 @@
 	"Version": 1,
 	"VersionName": "2.0",
 	"FriendlyName": "CrispAssetStudio",
-	"Description": "A plugin to help you show off all those awesome assets you create in Unreal.",
+	"Description": "A plugin to help with showcasing assets and setting up lighting.",
 	"Category": "Other",
 	"CreatedBy": "Crisp Clover",
 	"CreatedByURL": "https://twitter.com/crispclover",

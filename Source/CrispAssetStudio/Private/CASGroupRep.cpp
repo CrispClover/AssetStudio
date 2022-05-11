@@ -21,7 +21,7 @@ void ACASGroupRep::OnConstruction(const FTransform& transform)
 {
 	Super::OnConstruction(transform);
 
-	for (FLightData data : LightsData)
+	for (FCASLightData data : LightsData)
 	{
 		if (ACASLocalLight* light = Cast<ACASLocalLight>(data.Light))
 		{
@@ -35,16 +35,31 @@ void ACASGroupRep::OnConstruction(const FTransform& transform)
 void ACASGroupRep::RespondToActorDeleted(AActor* actor)
 {
 	if (ALight* light = Cast<ALight>(actor))
-		for (int i = 0; i < LightsData.Num(); i++)
-			if (LightsData[i].Light == light)
-				LightsData.RemoveAtSwap(i);
+		Remove(light);
+}
+
+void ACASGroupRep::Add(ALight* light)
+{
+	for (FCASLightData data : LightsData)
+		if (data.Light == light)
+			return;
+
+	LightsData.Add(FCASLightData(light));
+}
+
+void ACASGroupRep::Remove(ALight* light)
+{
+	for (int i = 0; i < LightsData.Num(); i++)
+		if (LightsData[i].Light == light)
+			LightsData.RemoveAtSwap(i);
 }
 
 void ACASGroupRep::Apply()
 {
 	for (int32 i = 0; i < LightsData.Num(); i++)
 	{
-		LightsData[i].OriginalColour = LightsData[i].Light->GetLightColor();
+		if (LightsData[i].Light)
+			LightsData[i].OriginalColour = LightsData[i].Light->GetLightColor();
 
 		if (ACASLocalLight* casLight = Cast<ACASLocalLight>(LightsData[i].Light))
 		{
@@ -60,7 +75,8 @@ void ACASGroupRep::Destroyed()
 {
 	for (int32 i = 0; i < LightsData.Num(); i++)
 	{
-		LightsData[i].Light->SetLightColor(LightsData[i].OriginalColour);
+		if (LightsData[i].Light)
+			LightsData[i].Light->SetLightColor(LightsData[i].OriginalColour);
 
 		if (ACASLocalLight* casLight = Cast<ACASLocalLight>(LightsData[i].Light))
 		{

@@ -103,8 +103,12 @@ FRotator UCASEditorSubsystem::GetBaseRotator(USceneComponent* refComp, AActor* t
 		return FRotator();
 
 	FRotator baseRot = FRotator();
+	FRotator actorRot = FRotator();
 	FVector basePos;
 	FVector compPos;
+
+	if (target)
+		actorRot = target->GetActorRotation();
 
 	if (target && (RotCalcType == ERotCalcType::PlanarPos || RotCalcType == ERotCalcType::ThreeDPos))
 		basePos = target->GetActorLocation();
@@ -132,7 +136,9 @@ FRotator UCASEditorSubsystem::GetBaseRotator(USceneComponent* refComp, AActor* t
 		break;
 	}
 
-	return baseRot;
+	FRotator localRotation = UKismetMathLibrary::ComposeRotators(baseRot, actorRot.GetInverse());
+
+	return localRotation;
 }
 
 void UCASEditorSubsystem::OnLevelActorAdded(AActor* actor)
@@ -209,7 +215,7 @@ void UCASEditorSubsystem::CreateGroup(TSubclassOf<ACASGroupRep> GroupClass)
 	rep->LightsData.Reserve(selectedLights.Num());
 
 	for (ALight* light : selectedLights)
-		rep->LightsData.Add(FLightData(light));
+		rep->LightsData.Add(FCASLightData(light));
 
 	rep->SetFolderPath(FName("CASGroups"));
 }
