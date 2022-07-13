@@ -1,21 +1,13 @@
-# CrispAssetStudio v2.0 beta
+# CrispAssetStudio v2.1
 
 This is a small toolset to help you when setting up scenes in Unreal. Originally made for my own portfolio work, things got a bit out of hand and I figured other people might find this useful, maybe even for setting up lighting in cinematic shots.
 
 ## Installation
 You can find the pre-built plugin under "Releases" here on github. You can copy it into your project's plugin folder, or into the engine's plugin folder if you want to use it across multiple projects.
 
-## Usage
+## [Getting started](https://github.com/CrispClover/AssetStudio/wiki)
 
-I will make a tutorial video in the very near future. (For real this time)
-
-### Getting started
-First, open the Map called "Studio" located in the main folder, then run the Editor Utility Widget, also located in the main folder. An Actor to display a Static Mesh is already located in the Level - you can set the mesh to be displayed using the Editor Widget under the "Meshes" tab. You can spawn other actors and create light groups using the controls on the left side of the Utility Widget. You can make your own light presets in the data table found in the "Setup" folder.
-
-### Rendering
-I've included some default level sequences to help you with making videos and images. I kept them as minimalistic as possible.
-
-I recommend making "screenshots" using the Movie Render Queue, this gives you much better anti-aliasing results than any high-resolution screenshot.
+Two tutorials will come. Eventually. I have already had a few recording sessions, but I wasn't happy with the results. I have now finally decided to have a feature overview here on the [wiki](https://github.com/CrispClover/AssetStudio/wiki). I will record my workflow with the plugin for a simple showcase and a still image as soon as I get to it.
 
 ## Feedback / Bugs / (Copyright)
 Feedback and contributions are welcome. I might release updates if I get to it.
