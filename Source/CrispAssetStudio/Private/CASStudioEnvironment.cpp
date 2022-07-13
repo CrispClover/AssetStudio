@@ -56,10 +56,10 @@ void ACASStudioEnvironment::ReInit()
 		else
 			Floor->SetMaterial(0, UnlitMaterial);
 
-		if (gradient && GradientSkyMaterial)
-			Sky->SetMaterial(0, GradientSkyMaterial);
-		else
-			Sky->SetMaterial(0, UnlitMaterial);
+		//if (hdrMat && HDRMaterial)
+			//Sky->SetMaterial(0, HDRMaterial);
+		//else
+		Sky->SetMaterial(0, UnlitMaterial);
 	}
 
 	SetScale();
@@ -75,10 +75,12 @@ void ACASStudioEnvironment::UpdateMaterialData()
 	Sky->SetCustomPrimitiveDataVector3(3, FVector(GradientColour));
 
 	//GradientData
+	Floor->SetCustomPrimitiveDataVector2(6, GradientOrigin);
+	Floor->SetCustomPrimitiveDataFloat(8, GradientScreenSlope);
+	Floor->SetCustomPrimitiveDataFloat(9, GradientAlpha);
 	Sky->SetCustomPrimitiveDataVector2(6, GradientOrigin);
 	Sky->SetCustomPrimitiveDataFloat(8, GradientScreenSlope);
-	Sky->SetCustomPrimitiveDataFloat(9, GradientZInfluence);
-	Sky->SetCustomPrimitiveDataFloat(10, GradientZSlope);
+	Sky->SetCustomPrimitiveDataFloat(9, GradientAlpha);
 }
 
 void ACASStudioEnvironment::SetScale()
@@ -107,20 +109,3 @@ bool ACASStudioEnvironment::ToggleUnlitFloor()
 
 	return true;
 }
-
-bool ACASStudioEnvironment::ToggleSkyGradient()
-{
-	if (!GradientSkyMaterial || !UnlitMaterial)
-		return false;
-
-	gradient = !gradient;
-
-	if (gradient)
-		Sky->SetMaterial(0, GradientSkyMaterial);
-	else
-		Sky->SetMaterial(0, UnlitMaterial);
-
-	return true;
-}
-
-

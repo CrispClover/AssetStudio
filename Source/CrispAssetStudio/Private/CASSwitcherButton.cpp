@@ -8,6 +8,9 @@ TSharedRef<SWidget> UCASSwitcherButton::RebuildWidget()
 
 	OnClicked.AddDynamic(this, &UCASSwitcherButton::Switch);
 
+	if (Switcher && Switcher->GetActiveWidgetIndex() == Index)
+		SetIsEnabled(true);
+
 	return widget;
 }
 

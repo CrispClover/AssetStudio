@@ -16,10 +16,10 @@ class CRISPASSETSTUDIO_API UCASSwitcherButton : public UButton
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(BlueprintReadWrite, Category = "CAS")
+	UPROPERTY(BlueprintReadWrite, Category = "UI")
 		UWidgetSwitcher* Switcher;
 	
-	UPROPERTY(BlueprintReadWrite, Category = "CAS")
+	UPROPERTY(BlueprintReadWrite, Category = "UI")
 		int32 Index;
 
 protected:

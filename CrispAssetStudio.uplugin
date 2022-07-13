@@ -1,7 +1,7 @@
 {
 	"FileVersion": 3,
 	"Version": 1,
-	"VersionName": "2.0",
+	"VersionName": "2.1",
 	"FriendlyName": "CrispAssetStudio",
 	"Description": "A plugin to help with showcasing assets and setting up lighting.",
 	"Category": "Other",

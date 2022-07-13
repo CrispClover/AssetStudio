@@ -6,13 +6,16 @@
 #include "EditorSubsystem.h"
 #include "CASEditorSubsystem.generated.h"
 
-UENUM()
+UENUM(BlueprintType)
 enum class ECASType : uint8
 {
 	none,
-	Light,
+	LocalLight,
+	GlobalLight,
 	GroupRep,
+	Camera,
 	Mesh,
+	Environment,
 	Other
 };
 
@@ -49,11 +52,20 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CAS")
 		ERotCalcType RotCalcType;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CAS")
+		FLinearColor SceneColour = FLinearColor(1, 1, 1);
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CAS")
+		FLinearColor ReferenceColour = FLinearColor(1, 1, 1);
+
 	UFUNCTION(BlueprintCallable, Category = "CAS")
 		static ECASType GetCASType(AActor* Actor);
 
 	UFUNCTION(BlueprintCallable, Category = "CAS")
 		TArray<AActor*> GetRelevantActors();
+
+	UFUNCTION(BlueprintCallable, Category = "CAS")
+		TArray<AActor*> GetActorsOfType(ECASType Type);
 
 	UFUNCTION(BlueprintCallable, Category = "CAS")
 		TArray<ALight*> GetSelectedLights();
@@ -66,6 +78,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "CAS")
 		FRotator GetBaseRotator(USceneComponent* ReferenceComponent, AActor* Target);
+
+	UFUNCTION(BlueprintCallable, Category = "CAS")
+		FLinearColor GetCalibratedColour(FLinearColor LightColour);
 
 	void OnLevelActorAdded(AActor* Actor);
 	void OnLevelActorDeleted(AActor* Actor);

@@ -11,12 +11,12 @@
 #include "CASSkeletalMesh.h"
 #include "CASSkyLight.h"
 #include "CASRectLight.h"
+#include "CASCalibrator.h"
 #include "Engine/Selection.h"
 #include "EditorScriptingHelpers.h"
 #include "EngineUtils.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Kismet/DataTableFunctionLibrary.h"
-#include "CASEditorSubsystem.h"
 
 // Start of broadcast class
 class FCASBroadcast
@@ -77,27 +77,32 @@ void UCASEditorSubsystem::Deinitialize()
 
 ECASType UCASEditorSubsystem::GetCASType(AActor* actor)
 {
-	if (actor->IsA(ACASCamera::StaticClass())
-		|| actor->IsA(ACASStudioEnvironment::StaticClass())
-		|| actor->IsA(ACASSkyLight::StaticClass())
-		|| actor->IsA(ADirectionalLight::StaticClass())
-		)
-		return ECASType::Other;
+	if (actor->IsA(ASkyLight::StaticClass()) || actor->IsA(ADirectionalLight::StaticClass()))
+		return ECASType::GlobalLight;
 
-	else if (actor->IsA(ALight::StaticClass()))
-		return ECASType::Light;
+	else if (actor->IsA(ALight::StaticClass()))//Must be checked after global lights. (due to inheritance)
+		return ECASType::LocalLight;
 
 	else if (actor->IsA(ACASGroupRep::StaticClass()))
 		return ECASType::GroupRep;
 
+	else if (actor->IsA(ACameraActor::StaticClass()))
+		return ECASType::Camera;
+
 	else if (actor->IsA(ACASMeshBase::StaticClass()))
 		return ECASType::Mesh;
+
+	else if (actor->IsA(ACASStudioEnvironment::StaticClass()))
+		return ECASType::Environment;
+
+	else if (actor->IsA(ACASCalibrator::StaticClass()))
+		return ECASType::Other;
 
 	else
 		return ECASType::none;
 }
 
-FRotator UCASEditorSubsystem::GetBaseRotator(USceneComponent* refComp, AActor* target)
+FRotator UCASEditorSubsystem::GetBaseRotator(USceneComponent* refComp, AActor* target)//TODO: Default target = nullptr?
 {
 	if (!refComp)
 		return FRotator();
@@ -141,6 +146,18 @@ FRotator UCASEditorSubsystem::GetBaseRotator(USceneComponent* refComp, AActor* t
 	return localRotation;
 }
 
+FLinearColor UCASEditorSubsystem::GetCalibratedColour(FLinearColor lightColour)
+{
+	FVector lv = FVector(lightColour);
+	FVector sv = FVector(SceneColour);
+	FVector rv = FVector(ReferenceColour);
+	lv.Normalize();
+	sv.Normalize();
+	rv.Normalize();
+	return FLinearColor(lv / sv * rv);
+}
+
+
 void UCASEditorSubsystem::OnLevelActorAdded(AActor* actor)
 {
 	ActorAddedEvent.Broadcast(actor);
@@ -165,6 +182,25 @@ TArray<AActor*> UCASEditorSubsystem::GetRelevantActors()
 		AActor* actor = *it;
 		ECASType type = GetCASType(actor);
 		if (type != ECASType::none)
+			result.Add(actor);
+	}
+
+	return result;
+}
+
+TArray<AActor*> UCASEditorSubsystem::GetActorsOfType(ECASType type)
+{
+	if (!EditorScriptingHelpers::CheckIfInEditorAndPIE() || !GEditor)
+		return TArray<AActor*>();
+
+	TGuardValue<bool> UnattendedScriptGuard(GIsRunningUnattendedScript, true);
+	UWorld* world = GEditor->GetEditorWorldContext(false).World();
+	TArray<AActor*> result;
+
+	for (TActorIterator<AActor> it(world, AActor::StaticClass(), EActorIteratorFlags::SkipPendingKill); it; ++it)
+	{
+		AActor* actor = *it;
+		if (type == GetCASType(actor))
 			result.Add(actor);
 	}
 
