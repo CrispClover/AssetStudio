@@ -2,6 +2,7 @@
 
 
 #include "CASStaticMesh.h"
+#include "CASLocalLight.h"
 
 ACASStaticMesh::ACASStaticMesh(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
@@ -29,8 +30,21 @@ void ACASStaticMesh::OnConstruction(const FTransform& transform)
 {
 	Super::OnConstruction(transform);
 
-	if (Mesh)
-		Cast<UStaticMeshComponent>(MeshComponent)->SetStaticMesh(Mesh);
+	if (!Mesh)
+		return;
+
+	if (UStaticMesh* oldMesh = Cast<UStaticMeshComponent>(MeshComponent)->GetStaticMesh())
+	{
+		if (oldMesh != Mesh)
+		{
+			FBoxSphereBounds oldBounds = oldMesh->GetBounds();
+			FBoxSphereBounds newBounds = Mesh->GetBounds();
+
+			OnMeshChange(oldBounds.BoxExtent, newBounds.BoxExtent);
+
+			Cast<UStaticMeshComponent>(MeshComponent)->SetStaticMesh(Mesh);
+		}
+	}
 }
 
 bool ACASStaticMesh::ToggleWireframe()

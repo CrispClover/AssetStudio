@@ -16,6 +16,8 @@ class CRISPASSETSTUDIO_API ACASRectLight : public ACASLocalLight
 	GENERATED_UCLASS_BODY()
 
 public:
+	virtual void AdjustDistance(FVector BoxDifference) override;
+
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "Light")
 		TObjectPtr<class URectLightComponent> RectLightComponent;
 };

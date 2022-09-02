@@ -14,6 +14,9 @@ UCLASS(Blueprintable)
 class CRISPASSETSTUDIO_API ACASSpotLight : public ACASLocalLight
 {
 	GENERATED_UCLASS_BODY()
+public:
+
+	virtual void AdjustDistance(FVector BoxDifference) override;
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "Light")
 		TObjectPtr<class USpotLightComponent> SpotLightComponent;

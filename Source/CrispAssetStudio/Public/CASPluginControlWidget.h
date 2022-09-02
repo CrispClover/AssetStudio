@@ -22,8 +22,8 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "CAS", meta = (BindWidget))
 		UWrapBox* PluginControlsBox = nullptr;
 
-	UPROPERTY(BlueprintReadOnly, Category = "CAS")
-		UButton* CalibratorToggle = nullptr;
+	//UPROPERTY(BlueprintReadOnly, Category = "CAS")
+		//UButton* CalibratorToggle = nullptr;
 
 	UPROPERTY(BlueprintReadOnly, Category = "CAS")
 		UDetailsView* CalibratorView = nullptr;
@@ -67,7 +67,7 @@ public:
 
 protected:
 	virtual void NativeConstruct() override;
-	virtual void BeginDestroy() override;
+	virtual void NativeDestruct() override;
 
 private:
 	UCASEditorSubsystem* CAS = nullptr;

@@ -25,6 +25,15 @@ void ACASLocalLight::OnConstruction(const FTransform& transform)
 	ApplyProperties();
 }
 
+void ACASLocalLight::AdjustDistance(FVector boxDifference)
+{
+	FVector d = GetLightComponent()->GetForwardVector() * boxDifference;
+
+	Distance = Distance * d.Length();
+
+	SetDistance();
+}
+
 void ACASLocalLight::SetDistance()
 {
 	GetLightComponent()->SetRelativeLocation(FVector(-Distance, 0, 0));

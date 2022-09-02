@@ -1,6 +1,7 @@
 // Copyright Crisp Clover. Feel free to copy.
 
 #include "CASMeshBase.h"
+#include "CASLocalLight.h"
 
 void ACASMeshBase::BeginPlay()
 {
@@ -12,6 +13,22 @@ void ACASMeshBase::OnConstruction(const FTransform& transform)
 {
 	Super::OnConstruction(transform);
 	UpdateMaterialData();
+}
+
+void ACASMeshBase::OnMeshChange(FVector3d oldBoxExtent, FVector3d newBoxExtent)
+{
+	FVector vec =  newBoxExtent / oldBoxExtent;
+
+	TArray<AActor*> attached;
+	GetAttachedActors(attached);
+
+	for (AActor* actor : attached)
+	{
+		if (ACASLocalLight* light = Cast<ACASLocalLight>(actor))
+			light->AdjustDistance(vec);
+
+		//TODO? move meshes out of the way.
+	}
 }
 
 bool ACASMeshBase::ToggleSimpleMaterial()

@@ -58,8 +58,8 @@ protected:
 		TObjectPtr<class UMeshComponent> WireframeComponent;
 
 	virtual void BeginPlay() override;
-
 	virtual void OnConstruction(const FTransform& transform) override;
+	void OnMeshChange(FVector3d OldBoxExtent, FVector3d NewBoxExtent);
 
 	bool wireframe = false;
 

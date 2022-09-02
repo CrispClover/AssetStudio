@@ -40,6 +40,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "CAS")
 		virtual void ApplyProperties();
 
+	UFUNCTION(BlueprintCallable, Category = "CAS")
+		virtual void AdjustDistance(FVector BoxDifference);
+
 protected:
 	void SetDistance();
 	void SetRotation();

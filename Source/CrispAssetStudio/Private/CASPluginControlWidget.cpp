@@ -6,12 +6,12 @@
 #include "Components/WrapBoxSlot.h"
 #include "CASLocalLight.h"
 
-void UCASPluginControlWidget::BeginDestroy()
+void UCASPluginControlWidget::NativeDestruct()
 {
 	if (CAS)
 		CAS->ActorAddedEvent.RemoveAll(this);
 
-	Super::BeginDestroy();
+	Super::NativeDestruct();
 }
 
 void UCASPluginControlWidget::NativeConstruct()
@@ -72,9 +72,10 @@ void UCASPluginControlWidget::BuildWidget()
 		UEditorUtilityWidget* sb = CreateWidget<UCASSpawnBaseWidget>(GetWorld(), SpawnClass);
 		PluginControlsBox->AddChildToWrapBox(sb);
 
-		CalibratorToggle = BuildButton(FText::FromString("Toggle Calibrator"), UButton::StaticClass());
-		CalibratorToggle->OnClicked.AddDynamic(this, &UCASPluginControlWidget::ToggleCalibrator);
-		PluginControlsBox->AddChildToWrapBox(CalibratorToggle);
+		UButton* calibrator = BuildButton(FText::FromString("Toggle Calibrator"), UButton::StaticClass());
+		calibrator->OnClicked.AddDynamic(this, &UCASPluginControlWidget::ToggleCalibrator);
+		calibrator->SetToolTipText(FText::FromString("Toggles the calibrator. Uses visibility or spawns/destroys the actor depending on DeleteCalibrator. (Found in the Widget's Blueprint)"));
+		PluginControlsBox->AddChildToWrapBox(calibrator);
 
 		CalibratorView = WidgetTree->ConstructWidget<UDetailsView>(UDetailsView::StaticClass());
 		CalibratorView->CategoriesToShow.Add(FName("CAS"));
@@ -87,10 +88,12 @@ void UCASPluginControlWidget::BuildWidget()
 
 		UButton* renderSel = BuildButton(FText::FromString("Queue Selected"), UButton::StaticClass());
 		renderSel->OnClicked.AddDynamic(this, &UCASPluginControlWidget::QueueSelected);
+		renderSel->SetToolTipText(FText::FromString("Creates Sequences for all selected cameras and queues them for rendering with the Movie Render Queue."));
 		PluginControlsBox->AddChildToWrapBox(renderSel);
 
 		UButton* renderAll = BuildButton(FText::FromString("Queue All"), UButton::StaticClass());
 		renderAll->OnClicked.AddDynamic(this, &UCASPluginControlWidget::QueueAll);
+		renderAll->SetToolTipText(FText::FromString("Creates Sequences for all cameras and queues them for rendering with the Movie Render Queue."));
 		PluginControlsBox->AddChildToWrapBox(renderAll);
 
 		for (UPanelSlot* ps : PluginControlsBox->GetSlots())

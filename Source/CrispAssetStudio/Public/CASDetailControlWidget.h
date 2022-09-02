@@ -51,7 +51,7 @@ public:
 
 protected:
 	virtual void NativeConstruct() override;
-	virtual void BeginDestroy() override;
+	virtual void NativeDestruct() override;
 
 private:
 	UCASEditorSubsystem* CAS = nullptr;

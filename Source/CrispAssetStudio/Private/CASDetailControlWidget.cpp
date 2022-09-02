@@ -6,12 +6,12 @@
 #include "Components/HorizontalBoxSlot.h"
 #include "Components/TextBlock.h"
 
-void UCASDetailControlWidget::BeginDestroy()
+void UCASDetailControlWidget::NativeDestruct()
 {
 	if (CAS)
 		CAS->ActorAddedEvent.RemoveAll(this);
 
-	Super::BeginDestroy();
+	Super::NativeDestruct();
 }
 
 void UCASDetailControlWidget::NativeConstruct()
@@ -43,13 +43,8 @@ void UCASDetailControlWidget::AddDetailsWidget(AActor* actor)
 void UCASDetailControlWidget::BuildWidget()
 {
 	for (const TPair<ECASType, FName>& pair : TabSettings)
-	{
 		if (!Containers.Contains(pair.Value))
 			BuildTab(pair.Value);
-
-		//pair.Key;
-		//pair.Value;
-	}
 
 	for (AActor* actor : CAS->GetRelevantActors())
 		AddDetailsWidget(actor);

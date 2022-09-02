@@ -157,7 +157,6 @@ FLinearColor UCASEditorSubsystem::GetCalibratedColour(FLinearColor lightColour)
 	return FLinearColor(lv / sv * rv);
 }
 
-
 void UCASEditorSubsystem::OnLevelActorAdded(AActor* actor)
 {
 	ActorAddedEvent.Broadcast(actor);

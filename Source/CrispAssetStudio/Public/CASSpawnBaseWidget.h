@@ -30,7 +30,4 @@ public:
 
 	UPROPERTY(BlueprintReadOnly, Category = "CAS", meta = (BindWidget))
 		UTextBlock* Label = nullptr;
-
-	UPROPERTY(BlueprintReadOnly, Category = "CAS")
-		TSubclassOf<AActor> ActorClass = nullptr;
 };

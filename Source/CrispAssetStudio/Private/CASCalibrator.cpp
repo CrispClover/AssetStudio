@@ -20,7 +20,7 @@ void ACASCalibrator::OnConstruction(const FTransform& transform)
 	Super::OnConstruction(transform);
 
 	if (!GEditor)
-		return;//??
+		return;//TODO: needed??
 
 	if (!CAS)
 		CAS = GEditor->GetEditorSubsystem<UCASEditorSubsystem>();
