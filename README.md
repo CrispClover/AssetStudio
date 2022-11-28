@@ -15,6 +15,8 @@ You may copy the code/blueprints into your own projects, but make sure to credit
 
 If you encounter bugs, or need support in rebuilding the plugin for a different engine version feel free to let me know:
 
+[Unreal Forums](https://forums.unrealengine.com/t/asset-studio/)
+
 [Twitter](https://twitter.com/crispclover)
 
 ___
