@@ -11,13 +11,14 @@ Two tutorials will come. Eventually. I have already had a few recording sessions
 
 ## Feedback / Bugs / (Copyright)
 Feedback and contributions are welcome. I might release updates if I get to it.
-You may copy the code/blueprints into your own projects, but make sure to credit me somewhere visible if you do.
 
 If you encounter bugs, or need support in rebuilding the plugin for a different engine version feel free to let me know:
 
 [Unreal Forums](https://forums.unrealengine.com/t/asset-studio/)
 
 [Twitter](https://twitter.com/crispclover)
+
+[Discord](https://discord.gg/ghXRxA2YVf)
 
 ___
 
