@@ -18,8 +18,6 @@ If you encounter bugs, or need support in rebuilding the plugin for a different 
 
 [Twitter](https://twitter.com/crispclover)
 
-[Discord](https://discord.gg/ghXRxA2YVf)
-
 ___
 
 (Important) sidenote for **new** 3D artists who came here to use this in their portfolio work:
