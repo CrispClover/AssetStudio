@@ -7,9 +7,7 @@ You can find the pre-built plugin under "Releases" here on github. You can copy 
 
 ## [Getting started](https://github.com/CrispClover/AssetStudio/wiki)
 
-Two tutorials will come. Eventually. I have already had a few recording sessions, but I wasn't happy with the results. I have now finally decided to have a feature overview here on the [wiki](https://github.com/CrispClover/AssetStudio/wiki). I will record my workflow with the plugin for a simple showcase and a still image as soon as I get to it.
-
-## Feedback / Bugs / (Copyright)
+## Feedback / Bugs
 Feedback and contributions are welcome. I might release updates if I get to it.
 
 If you encounter bugs, or need support in rebuilding the plugin for a different engine version feel free to let me know:
