@@ -1,10 +1,9 @@
 // Copyright Crisp Clover. Feel free to copy.
 
-
 #include "CASSkeletalMesh.h"
 #include "CASLocalLight.h"
 
-ACASSkeletalMesh::ACASSkeletalMesh(const FObjectInitializer& ObjectInitializer)
+ACASSkeletalMesh::ACASSkeletalMesh(FObjectInitializer const& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
 	USkeletalMeshComponent* mc = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SkeletalMesh"));
@@ -24,23 +23,23 @@ ACASSkeletalMesh::ACASSkeletalMesh(const FObjectInitializer& ObjectInitializer)
 	WireframeComponent->AttachToComponent(RootComponent, FAttachmentTransformRules::SnapToTargetIncludingScale);
 }
 
-void ACASSkeletalMesh::OnConstruction(const FTransform& transform)
+void ACASSkeletalMesh::OnConstruction(FTransform const& transform)
 {
 	Super::OnConstruction(transform);
 
 	if (!Mesh)
 		return;
 
-	if (USkeletalMesh* oldMesh = Cast<USkeletalMeshComponent>(MeshComponent)->SkeletalMesh)
+	if (USkinnedAsset const* oldMesh = Cast<USkeletalMeshComponent>(MeshComponent)->GetSkinnedAsset())
 	{
 		if (oldMesh != Mesh)
 		{
-			FBoxSphereBounds oldBounds = oldMesh->GetBounds();
-			FBoxSphereBounds newBounds = Mesh->GetBounds();
+			const FBoxSphereBounds oldBounds = oldMesh->GetBounds();
+			const FBoxSphereBounds newBounds = Mesh->GetBounds();
 
 			OnMeshChange(oldBounds.BoxExtent, newBounds.BoxExtent);
 
-			Cast<USkeletalMeshComponent>(MeshComponent)->SetSkeletalMesh(Mesh);
+			Cast<USkeletalMeshComponent>(MeshComponent)->SetSkinnedAsset(Mesh);
 		}
 	}
 }
@@ -56,7 +55,7 @@ bool ACASSkeletalMesh::ToggleWireframe()
 	{
 		Cast<USkeletalMeshComponent>(WireframeComponent)->SetSkeletalMesh(Mesh);
 
-		for (int i = 0; i < WireframeComponent->GetNumMaterials(); i++)
+		for (int32 i = 0; i < WireframeComponent->GetNumMaterials(); i++)
 			WireframeComponent->SetMaterial(i, WireframeMaterial);
 	}
 	else

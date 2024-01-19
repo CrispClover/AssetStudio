@@ -59,31 +59,34 @@ public:
 		FLinearColor ReferenceColour = FLinearColor(1, 1, 1);
 
 	UFUNCTION(BlueprintCallable, Category = "CAS")
-		static ECASType GetCASType(AActor* Actor);
+		static ECASType GetCASType(AActor const* Actor);
 
 	UFUNCTION(BlueprintCallable, Category = "CAS")
-		TArray<AActor*> GetRelevantActors();
+		TArray<AActor*> GetRelevantActors() const;
 
 	UFUNCTION(BlueprintCallable, Category = "CAS")
-		TArray<AActor*> GetActorsOfType(ECASType Type);
+		TArray<AActor*> GetActorsOfType(const ECASType Type) const;
 
 	UFUNCTION(BlueprintCallable, Category = "CAS")
-		TArray<ALight*> GetSelectedLights();
+		TArray<ALight*> GetSelectedLights() const;
 
 	UFUNCTION(BlueprintCallable, Category = "CAS")
-		TArray<AActor*> GetSelectedActors();
+		TArray<AActor*> GetSelectedActors() const;
+
+	/*UFUNCTION(BlueprintCallable, Category = "CAS")
+		TArray<UMaterialInterface*> GetSelectedMaterials() const;*/
 
 	UFUNCTION(BlueprintCallable, Category = "CAS")
-		void CreateGroup(TSubclassOf<ACASGroupRep> GroupClass);
+		void CreateGroup(const TSubclassOf<ACASGroupRep> GroupClass) const;
 
 	UFUNCTION(BlueprintCallable, Category = "CAS")
-		FRotator GetBaseRotator(USceneComponent* ReferenceComponent, AActor* Target);
+		FRotator GetBaseRotator(USceneComponent const* ReferenceComponent, AActor const* Target) const;
 
 	UFUNCTION(BlueprintCallable, Category = "CAS")
-		FLinearColor GetCalibratedColour(FLinearColor LightColour);
+		FLinearColor GetCalibratedColour(FLinearColor const& LightColour) const;
 
-	void OnLevelActorAdded(AActor* Actor);
-	void OnLevelActorDeleted(AActor* Actor);
+	void OnLevelActorAdded(AActor* Actor) const;
+	void OnLevelActorDeleted(AActor* Actor) const;
 
 	TSharedPtr<class FCASBroadcast> CASBroadcast;
 };

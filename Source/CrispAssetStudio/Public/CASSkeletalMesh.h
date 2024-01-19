@@ -15,7 +15,7 @@ class CRISPASSETSTUDIO_API ACASSkeletalMesh : public ACASMeshBase
 	GENERATED_UCLASS_BODY()
 
 protected:
-	virtual void OnConstruction(const FTransform& transform) override;
+	virtual void OnConstruction(FTransform const& transform) override;
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CAS")

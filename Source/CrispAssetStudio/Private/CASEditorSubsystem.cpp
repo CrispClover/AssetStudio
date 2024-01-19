@@ -17,6 +17,8 @@
 #include "EngineUtils.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Kismet/DataTableFunctionLibrary.h"
+#include "ContentBrowserModule.h"
+#include "IContentBrowserSingleton.h"
 
 // Start of broadcast class
 class FCASBroadcast
@@ -75,7 +77,7 @@ void UCASEditorSubsystem::Deinitialize()
 	Super::Deinitialize();
 }
 
-ECASType UCASEditorSubsystem::GetCASType(AActor* actor)
+ECASType UCASEditorSubsystem::GetCASType(AActor const* actor)
 {
 	if (actor->IsA(ASkyLight::StaticClass()) || actor->IsA(ADirectionalLight::StaticClass()))
 		return ECASType::GlobalLight;
@@ -102,7 +104,7 @@ ECASType UCASEditorSubsystem::GetCASType(AActor* actor)
 		return ECASType::none;
 }
 
-FRotator UCASEditorSubsystem::GetBaseRotator(USceneComponent* refComp, AActor* target)//TODO: Default target = nullptr?
+FRotator UCASEditorSubsystem::GetBaseRotator(USceneComponent const* refComp, AActor const* target) const//TODO: Default target = nullptr?
 {
 	if (!refComp)
 		return FRotator();
@@ -141,12 +143,10 @@ FRotator UCASEditorSubsystem::GetBaseRotator(USceneComponent* refComp, AActor* t
 		break;
 	}
 
-	FRotator localRotation = UKismetMathLibrary::ComposeRotators(baseRot, actorRot.GetInverse());
-
-	return localRotation;
+	return UKismetMathLibrary::ComposeRotators(baseRot, actorRot.GetInverse());
 }
 
-FLinearColor UCASEditorSubsystem::GetCalibratedColour(FLinearColor lightColour)
+FLinearColor UCASEditorSubsystem::GetCalibratedColour(FLinearColor const& lightColour) const
 {
 	FVector lv = FVector(lightColour);
 	FVector sv = FVector(SceneColour);
@@ -157,23 +157,23 @@ FLinearColor UCASEditorSubsystem::GetCalibratedColour(FLinearColor lightColour)
 	return FLinearColor(lv / sv * rv);
 }
 
-void UCASEditorSubsystem::OnLevelActorAdded(AActor* actor)
+void UCASEditorSubsystem::OnLevelActorAdded(AActor* actor) const
 {
 	ActorAddedEvent.Broadcast(actor);
 }
 
-void UCASEditorSubsystem::OnLevelActorDeleted(AActor* actor)
+void UCASEditorSubsystem::OnLevelActorDeleted(AActor* actor) const
 {
 	ActorDeletedEvent.Broadcast(actor);
 }
 
-TArray<AActor*> UCASEditorSubsystem::GetRelevantActors()
+TArray<AActor*> UCASEditorSubsystem::GetRelevantActors() const
 {
 	if (!EditorScriptingHelpers::CheckIfInEditorAndPIE() || !GEditor)
 		return TArray<AActor*>();
 
 	TGuardValue<bool> UnattendedScriptGuard(GIsRunningUnattendedScript, true);
-	UWorld* world = GEditor->GetEditorWorldContext(false).World();
+	UWorld const* world = GEditor->GetEditorWorldContext(false).World();
 	TArray<AActor*> result;
 
 	for (TActorIterator<AActor> it(world, AActor::StaticClass(), EActorIteratorFlags::SkipPendingKill); it; ++it)
@@ -187,13 +187,13 @@ TArray<AActor*> UCASEditorSubsystem::GetRelevantActors()
 	return result;
 }
 
-TArray<AActor*> UCASEditorSubsystem::GetActorsOfType(ECASType type)
+TArray<AActor*> UCASEditorSubsystem::GetActorsOfType(const ECASType type) const
 {
 	if (!EditorScriptingHelpers::CheckIfInEditorAndPIE() || !GEditor)
 		return TArray<AActor*>();
 
 	TGuardValue<bool> UnattendedScriptGuard(GIsRunningUnattendedScript, true);
-	UWorld* world = GEditor->GetEditorWorldContext(false).World();
+	UWorld const* world = GEditor->GetEditorWorldContext(false).World();
 	TArray<AActor*> result;
 
 	for (TActorIterator<AActor> it(world, AActor::StaticClass(), EActorIteratorFlags::SkipPendingKill); it; ++it)
@@ -206,7 +206,7 @@ TArray<AActor*> UCASEditorSubsystem::GetActorsOfType(ECASType type)
 	return result;
 }
 
-TArray<ALight*> UCASEditorSubsystem::GetSelectedLights()
+TArray<ALight*> UCASEditorSubsystem::GetSelectedLights() const
 {
 	if (!GEditor)
 		return TArray<ALight*>();
@@ -221,7 +221,7 @@ TArray<ALight*> UCASEditorSubsystem::GetSelectedLights()
 	return result;
 }
 
-TArray<AActor*> UCASEditorSubsystem::GetSelectedActors()
+TArray<AActor*> UCASEditorSubsystem::GetSelectedActors() const
 {
 	if (!GEditor)
 		return TArray<AActor*>();
@@ -236,7 +236,22 @@ TArray<AActor*> UCASEditorSubsystem::GetSelectedActors()
 	return result;
 }
 
-void UCASEditorSubsystem::CreateGroup(TSubclassOf<ACASGroupRep> GroupClass)
+/*TArray<UMaterialInterface*> UCASEditorSubsystem::GetSelectedMaterials() const
+{
+	TArray<UMaterialInterface*> materials;
+
+	FContentBrowserModule& cbm = FModuleManager::LoadModuleChecked<FContentBrowserModule>("ContentBrowser");
+	TArray<FAssetData> assetList;
+	cbm.Get().GetSelectedAssets(assetList);
+
+	for (FAssetData& assetData : assetList)
+		if (UMaterialInterface* mat = Cast<UMaterialInterface>(assetData.GetAsset()))
+			materials.Add(mat);
+
+	return materials;
+}*/
+
+void UCASEditorSubsystem::CreateGroup(const TSubclassOf<ACASGroupRep> GroupClass) const
 {
 	if (!EditorScriptingHelpers::CheckIfInEditorAndPIE() || !GEditor)
 		return;
@@ -245,7 +260,7 @@ void UCASEditorSubsystem::CreateGroup(TSubclassOf<ACASGroupRep> GroupClass)
 
 	ACASGroupRep* rep = world->SpawnActor<ACASGroupRep>(GroupClass);
 
-	TArray<ALight*> selectedLights = GetSelectedLights();
+	const TArray<ALight*> selectedLights = GetSelectedLights();
 
 	rep->LightsData.Reserve(selectedLights.Num());
 

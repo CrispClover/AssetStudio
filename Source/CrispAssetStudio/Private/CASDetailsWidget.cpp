@@ -20,9 +20,9 @@ void UCASDetailsWidget::NativeConstruct()
 	if (Actor)
 		ActorView->SetObject(Actor);
 
-	if (ALight* light = Cast<ALight>(Actor))
+	if (ALight const* light = Cast<ALight>(Actor))
 		ComponentView->SetObject(light->GetLightComponent());
-	else if (ASkyLight* skyLight = Cast<ASkyLight>(Actor))
+	else if (ASkyLight const* skyLight = Cast<ASkyLight>(Actor))
 		ComponentView->SetObject(skyLight->GetLightComponent());
 	else
 		ComponentView->RemoveFromParent();

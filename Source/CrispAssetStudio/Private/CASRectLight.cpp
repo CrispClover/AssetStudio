@@ -2,22 +2,22 @@
 
 #include "CASRectLight.h"
 
-ACASRectLight::ACASRectLight(const FObjectInitializer& ObjectInitializer)
+ACASRectLight::ACASRectLight(FObjectInitializer const& ObjectInitializer)
 	: Super(ObjectInitializer.SetDefaultSubobjectClass<URectLightComponent>(TEXT("LightComponent0")))
 {
 	RectLightComponent = CastChecked<URectLightComponent>(GetLightComponent());
 	RectLightComponent->Mobility = EComponentMobility::Movable;
 }
 
-void ACASRectLight::AdjustDistance(FVector boxDifference)
+void ACASRectLight::AdjustDistance(FVector const& boxDifference)
 {
 	Super::AdjustDistance(boxDifference);
 
-	FVector wv = GetLightComponent()->GetRightVector() * boxDifference;
-	float w = RectLightComponent->SourceWidth * wv.Length();
+	const FVector wv = GetLightComponent()->GetRightVector() * boxDifference;
+	const float w = RectLightComponent->SourceWidth * wv.Length();
 	RectLightComponent->SetSourceWidth(w);
 
-	FVector hv = GetLightComponent()->GetUpVector() * boxDifference;
-	float h = RectLightComponent->SourceHeight * hv.Length();
+	const FVector hv = GetLightComponent()->GetUpVector() * boxDifference;
+	const float h = RectLightComponent->SourceHeight * hv.Length();
 	RectLightComponent->SetSourceHeight(h);
 }

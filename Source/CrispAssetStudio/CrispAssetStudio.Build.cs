@@ -44,6 +44,7 @@ public class CrispAssetStudio : ModuleRules
 				"EditorSubsystem",
 				"UMGEditor",
 				"CinematicCamera",
+                "ScriptableEditorWidgets",
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);

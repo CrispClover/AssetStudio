@@ -18,6 +18,10 @@ class CRISPASSETSTUDIO_API UCASPluginControlWidget : public UEditorUtilityWidget
 {
 	GENERATED_BODY()
 
+protected:
+	virtual void NativeConstruct() override;
+	virtual void NativeDestruct() override;
+
 public:
 	UPROPERTY(BlueprintReadOnly, Category = "CAS", meta = (BindWidget))
 		UWrapBox* PluginControlsBox = nullptr;
@@ -65,11 +69,10 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, Category = "CAS")
 		void QueueAll();
 
-protected:
-	virtual void NativeConstruct() override;
-	virtual void NativeDestruct() override;
+	/*UFUNCTION(BlueprintImplementableEvent, Category = "CAS")
+		void QueueMaterialRenders();*/
 
 private:
 	UCASEditorSubsystem* CAS = nullptr;
-	UButton* BuildButton(FText buttonLabel, TSubclassOf<UButton> buttonClass);//TODO: add a class for this
+	UButton* BuildButton(FText const& buttonLabel, const TSubclassOf<UButton> buttonClass);//TODO: add a class for this
 };

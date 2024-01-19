@@ -4,7 +4,7 @@
 #include "DrawDebugHelpers.h"
 #include "CineCameraComponent.h"
 
-ACASCineCamera::ACASCineCamera(const FObjectInitializer& ObjectInitializer)
+ACASCineCamera::ACASCineCamera(FObjectInitializer const& ObjectInitializer)
 	: Super(ObjectInitializer.SetDefaultSubobjectClass<UCineCameraComponent>(TEXT("CameraComponent")))
 {
 	CineCameraComponent = Cast<UCineCameraComponent>(GetCameraComponent());

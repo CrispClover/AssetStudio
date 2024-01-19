@@ -17,11 +17,11 @@ ACASGroupRep::ACASGroupRep()
 	cas->ActorDeletedEvent.AddDynamic(this, &ACASGroupRep::RespondToActorDeleted);
 }
 
-void ACASGroupRep::OnConstruction(const FTransform& transform)
+void ACASGroupRep::OnConstruction(FTransform const& transform)
 {
 	Super::OnConstruction(transform);
 
-	for (FCASLightData data : LightsData)
+	for (FCASLightData const& data : LightsData)
 	{
 		if (ACASLocalLight* light = Cast<ACASLocalLight>(data.Light))
 		{
@@ -34,7 +34,7 @@ void ACASGroupRep::OnConstruction(const FTransform& transform)
 
 void ACASGroupRep::RespondToActorDeleted(AActor* actor)
 {
-	if (ALight* light = Cast<ALight>(actor))
+	if (ALight const* light = Cast<ALight>(actor))
 		Remove(light);
 }
 
@@ -47,11 +47,12 @@ void ACASGroupRep::Add(ALight* light)
 	LightsData.Add(FCASLightData(light));
 }
 
-void ACASGroupRep::Remove(ALight* light)
+void ACASGroupRep::Remove(ALight const* light)
 {
-	for (int i = 0; i < LightsData.Num(); i++)
+	for (int32 i = 0; i < LightsData.Num(); i++)
 		if (LightsData[i].Light == light)
 			LightsData.RemoveAtSwap(i);
+	//TODO: restore original light data?
 }
 
 void ACASGroupRep::Apply()
@@ -61,7 +62,7 @@ void ACASGroupRep::Apply()
 		if (LightsData[i].Light)
 			LightsData[i].OriginalColour = LightsData[i].Light->GetLightColor();
 
-		if (ACASLocalLight* casLight = Cast<ACASLocalLight>(LightsData[i].Light))
+		if (ACASLocalLight const* casLight = Cast<ACASLocalLight>(LightsData[i].Light))
 		{
 			LightsData[i].OriginalPitch = casLight->Pitch;
 			LightsData[i].OriginalYaw = casLight->Yaw;

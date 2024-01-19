@@ -41,7 +41,7 @@ public:
 		virtual void ApplyProperties();
 
 	UFUNCTION(BlueprintCallable, Category = "CAS")
-		virtual void AdjustDistance(FVector BoxDifference);
+		virtual void AdjustDistance(FVector const& BoxDifference);
 
 protected:
 	void SetDistance();

@@ -9,15 +9,15 @@ void ACASMeshBase::BeginPlay()
 	UpdateMaterialData();
 }
 
-void ACASMeshBase::OnConstruction(const FTransform& transform)
+void ACASMeshBase::OnConstruction(FTransform const& transform)
 {
 	Super::OnConstruction(transform);
 	UpdateMaterialData();
 }
 
-void ACASMeshBase::OnMeshChange(FVector3d oldBoxExtent, FVector3d newBoxExtent)
+void ACASMeshBase::OnMeshChange(FVector3d const& oldBoxExtent, FVector3d const& newBoxExtent) const
 {
-	FVector vec =  newBoxExtent / oldBoxExtent;
+	const FVector vec =  newBoxExtent / oldBoxExtent;
 
 	TArray<AActor*> attached;
 	GetAttachedActors(attached);
@@ -42,12 +42,12 @@ bool ACASMeshBase::ToggleSimpleMaterial()
 	{
 		originalMaterials = MeshComponent->GetMaterials();
 
-		for (int i = 0; i < MeshComponent->GetNumMaterials(); i++)
+		for (int32 i = 0; i < MeshComponent->GetNumMaterials(); i++)
 			MeshComponent->SetMaterial(i, SimpleMaterial);
 	}
 	else
 	{
-		for (int i = 0; i < originalMaterials.Num(); i++)
+		for (int32 i = 0; i < originalMaterials.Num(); i++)
 			MeshComponent->SetMaterial(i, originalMaterials[i]);
 
 		originalMaterials.Empty();

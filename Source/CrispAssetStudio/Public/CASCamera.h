@@ -15,10 +15,12 @@ class CRISPASSETSTUDIO_API ACASCamera : public ACameraActor
 {
 	GENERATED_BODY()
 
-public:
-	ACASCamera(const FObjectInitializer& ObjectInitializer);
-	virtual void OnConstruction(const FTransform& transform) override;
+protected:
+	virtual void OnConstruction(FTransform const& transform) override;
 	virtual void Tick(float DeltaTime) override;
+
+public:
+	ACASCamera(FObjectInitializer const& ObjectInitializer);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CAS|Reference")
 		UMaterialInterface* RefImgMaterial;
@@ -26,7 +28,7 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "CAS")
 		UMaterialInstanceDynamic* RefDynamicInstance = nullptr;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CAS", meta = (UIMin = 0))
+	UPROPERTY(EditAnywhere, Interp, BlueprintReadWrite, Category = "CAS", meta = (UIMin = 0))
 		float Distance = 200.f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CAS|Reference", meta = (UIMin = 0.f, UIMax = 1.f))

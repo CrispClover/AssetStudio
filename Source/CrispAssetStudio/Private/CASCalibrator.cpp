@@ -2,7 +2,7 @@
 
 #include "CASCalibrator.h"
 
-ACASCalibrator::ACASCalibrator(const FObjectInitializer& ObjectInitializer)
+ACASCalibrator::ACASCalibrator(FObjectInitializer const& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
 	UStaticMeshComponent* mc = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Calibrator"));
@@ -15,7 +15,7 @@ ACASCalibrator::ACASCalibrator(const FObjectInitializer& ObjectInitializer)
 	RootComponent = Calibrator = mc;
 }
 
-void ACASCalibrator::OnConstruction(const FTransform& transform)
+void ACASCalibrator::OnConstruction(FTransform const& transform)
 {
 	Super::OnConstruction(transform);
 

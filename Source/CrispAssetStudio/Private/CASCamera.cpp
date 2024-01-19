@@ -1,12 +1,10 @@
 // Copyright Crisp Clover. Feel free to copy.
 
-
 #include "CASCamera.h"
 #include "Camera/CameraComponent.h"
 #include "Kismet/KismetMaterialLibrary.h"
-#include "..\Public\CASCamera.h"
 
-ACASCamera::ACASCamera(const FObjectInitializer& ObjectInitializer)
+ACASCamera::ACASCamera(FObjectInitializer const& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
 	ApplyProperties();
@@ -18,7 +16,7 @@ void ACASCamera::Tick(float DeltaTime)
 	ApplyProperties();
 }
 
-void ACASCamera::OnConstruction(const FTransform& transform)
+void ACASCamera::OnConstruction(FTransform const& transform)
 {
 	Super::OnConstruction(transform);
 	ApplyProperties();

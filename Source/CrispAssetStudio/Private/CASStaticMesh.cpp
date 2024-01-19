@@ -1,10 +1,9 @@
 // Copyright Crisp Clover. Feel free to copy.
 
-
 #include "CASStaticMesh.h"
 #include "CASLocalLight.h"
 
-ACASStaticMesh::ACASStaticMesh(const FObjectInitializer& ObjectInitializer)
+ACASStaticMesh::ACASStaticMesh(FObjectInitializer const& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
 	UStaticMeshComponent* mc = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));
@@ -26,19 +25,19 @@ ACASStaticMesh::ACASStaticMesh(const FObjectInitializer& ObjectInitializer)
 	WireframeComponent->AttachToComponent(RootComponent, FAttachmentTransformRules::SnapToTargetIncludingScale);
 }
 
-void ACASStaticMesh::OnConstruction(const FTransform& transform)
+void ACASStaticMesh::OnConstruction(FTransform const& transform)
 {
 	Super::OnConstruction(transform);
 
 	if (!Mesh)
 		return;
 
-	if (UStaticMesh* oldMesh = Cast<UStaticMeshComponent>(MeshComponent)->GetStaticMesh())
+	if (UStaticMesh const* oldMesh = Cast<UStaticMeshComponent>(MeshComponent)->GetStaticMesh())
 	{
 		if (oldMesh != Mesh)
 		{
-			FBoxSphereBounds oldBounds = oldMesh->GetBounds();
-			FBoxSphereBounds newBounds = Mesh->GetBounds();
+			const FBoxSphereBounds oldBounds = oldMesh->GetBounds();
+			const FBoxSphereBounds newBounds = Mesh->GetBounds();
 
 			OnMeshChange(oldBounds.BoxExtent, newBounds.BoxExtent);
 
@@ -58,7 +57,7 @@ bool ACASStaticMesh::ToggleWireframe()
 	{
 		Cast<UStaticMeshComponent>(WireframeComponent)->SetStaticMesh(Cast<UStaticMeshComponent>(MeshComponent)->GetStaticMesh());
 
-		for (int i = 0; i < WireframeComponent->GetNumMaterials(); i++)
+		for (int32 i = 0; i < WireframeComponent->GetNumMaterials(); i++)
 			WireframeComponent->SetMaterial(i, WireframeMaterial);
 	}
 	else

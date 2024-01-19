@@ -17,8 +17,12 @@ class CRISPASSETSTUDIO_API UCASActionsWidget : public UEditorUtilityWidget
 {
 	GENERATED_BODY()
 	
-public:
+
+protected:
+	virtual void NativeConstruct() override;
 	virtual void SynchronizeProperties() override;
+
+public:
 
 	UPROPERTY(BlueprintReadOnly, Category = "CAS", meta = (BindWidget))
 		UGridPanel* Container = nullptr;
@@ -31,7 +35,4 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "CAS")
 		void DeleteActor();
-
-protected:
-	virtual void NativeConstruct() override;
 };

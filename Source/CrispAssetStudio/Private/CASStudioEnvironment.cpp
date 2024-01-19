@@ -1,9 +1,8 @@
 // Copyright Crisp Clover. Feel free to copy.
 
-
 #include "CASStudioEnvironment.h"
 
-ACASStudioEnvironment::ACASStudioEnvironment(const FObjectInitializer& ObjectInitializer)
+ACASStudioEnvironment::ACASStudioEnvironment(FObjectInitializer const& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
 	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
@@ -30,13 +29,13 @@ void ACASStudioEnvironment::BeginPlay()
 	ReInit();
 }
 
-void ACASStudioEnvironment::OnConstruction(const FTransform& transform)
+void ACASStudioEnvironment::OnConstruction(FTransform const& transform)
 {
 	Super::OnConstruction(transform);
 	ReInit();
 }
 
-void ACASStudioEnvironment::Tick(float DeltaTime)
+void ACASStudioEnvironment::Tick(const float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	UpdateMaterialData();
@@ -66,7 +65,7 @@ void ACASStudioEnvironment::ReInit()
 	UpdateMaterialData();
 }
 
-void ACASStudioEnvironment::UpdateMaterialData()
+void ACASStudioEnvironment::UpdateMaterialData()//TODO: use names
 {
 	//Colours
 	Floor->SetCustomPrimitiveDataVector3(0, FVector(BackgroundColour));

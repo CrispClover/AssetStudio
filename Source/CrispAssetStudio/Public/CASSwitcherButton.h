@@ -15,15 +15,15 @@ class CRISPASSETSTUDIO_API UCASSwitcherButton : public UButton
 {
 	GENERATED_BODY()
 
+protected:
+	virtual TSharedRef<SWidget> RebuildWidget() override;
+
 public:
 	UPROPERTY(BlueprintReadWrite, Category = "UI")
 		UWidgetSwitcher* Switcher;
 	
 	UPROPERTY(BlueprintReadWrite, Category = "UI")
 		int32 Index;
-
-protected:
-	virtual TSharedRef<SWidget> RebuildWidget() override;
 
 private:
 	UFUNCTION()

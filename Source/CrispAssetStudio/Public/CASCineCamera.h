@@ -17,7 +17,7 @@ class CRISPASSETSTUDIO_API ACASCineCamera : public ACASCamera
 	GENERATED_BODY()
 
 public:
-	ACASCineCamera(const FObjectInitializer& ObjectInitializer);
+	ACASCineCamera(FObjectInitializer const& ObjectInitializer);
 
 	virtual bool ShouldTickIfViewportsOnly() const override;
 

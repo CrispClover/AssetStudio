@@ -17,9 +17,8 @@ void UCASDetailControlWidget::NativeDestruct()
 void UCASDetailControlWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
-
-	if (!CAS)
-		CAS = GEditor->GetEditorSubsystem<UCASEditorSubsystem>();
+	
+	CAS = GEditor->GetEditorSubsystem<UCASEditorSubsystem>();
 
 	CAS->ActorAddedEvent.AddDynamic(this, &UCASDetailControlWidget::RespondToActorAdded);
 
@@ -33,7 +32,7 @@ void UCASDetailControlWidget::RespondToActorAdded(AActor* actor)
 
 void UCASDetailControlWidget::AddDetailsWidget(AActor* actor)
 {
-	ECASType type = UCASEditorSubsystem::GetCASType(actor);
+	const ECASType type = UCASEditorSubsystem::GetCASType(actor);
 	UCASDetailsWidget* detailsW = CreateWidget<UCASDetailsWidget>(GetWorld(), DetailsClass);
 	detailsW->Actor = actor;
 	if (TabSettings.Contains(type))
@@ -50,7 +49,7 @@ void UCASDetailControlWidget::BuildWidget()
 		AddDetailsWidget(actor);
 }
 
-void UCASDetailControlWidget::BuildTab(FName tabName)
+void UCASDetailControlWidget::BuildTab(const FName tabName)
 {
 	if (!Switcher || !SwitcherControls)
 		return;
@@ -66,7 +65,9 @@ void UCASDetailControlWidget::BuildTab(FName tabName)
 
 	UTextBlock* label = WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass());
 	label->SetText(FText::FromName(tabName));
-	label->Font.Size = 15;
+	FSlateFontInfo fontInfo = label->GetFont();
+	fontInfo.Size = 15;
+	label->SetFont(fontInfo);
 	switchB->AddChild(label);
 	switchB->Switcher = Switcher;
 	switchB->Index = Switcher->GetChildIndex(tab);

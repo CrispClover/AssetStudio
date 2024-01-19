@@ -1,6 +1,5 @@
 // Copyright Crisp Clover. Feel free to copy.
 
-
 #include "CASActionsWidget.h"
 #include "Blueprint/WidgetTree.h"
 #include "Components/TextBlock.h"
@@ -14,7 +13,9 @@ void UCASActionsWidget::SynchronizeProperties()
 		Delete->SetBackgroundColor(FLinearColor(1,0,0));
 		UTextBlock* label = WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass());
 		label->SetText(FText::FromString("Delete"));
-		label->Font.Size = 12;
+		FSlateFontInfo fontInfo = label->GetFont();
+		fontInfo.Size = 12;
+		label->SetFont(fontInfo);
 		Delete->AddChild(label);
 	}
 }

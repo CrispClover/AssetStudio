@@ -19,6 +19,10 @@ class CRISPASSETSTUDIO_API UCASDetailControlWidget : public UEditorUtilityWidget
 {
 	GENERATED_BODY()
 
+protected:
+	virtual void NativeConstruct() override;
+	virtual void NativeDestruct() override;
+
 public:
 	//PROPERTIES
 	UPROPERTY(BlueprintReadOnly, Category = "CAS", meta = (BindWidget))
@@ -47,11 +51,7 @@ public:
 		void BuildWidget();
 
 	UFUNCTION(BlueprintCallable, Category = "CAS")
-		void BuildTab(FName TabName);
-
-protected:
-	virtual void NativeConstruct() override;
-	virtual void NativeDestruct() override;
+		void BuildTab(const FName TabName);
 
 private:
 	UCASEditorSubsystem* CAS = nullptr;

@@ -10,6 +10,10 @@ UCLASS(Abstract)
 class CRISPASSETSTUDIO_API ACASMeshBase : public AActor
 {
 	GENERATED_BODY()
+
+protected:
+	virtual void BeginPlay() override;
+	virtual void OnConstruction(FTransform const& transform) override;
 	
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CAS|Materials")
@@ -57,14 +61,11 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Studio", meta = (ExposeFunctionCategories = "Mesh,Rendering,Components|Mesh", AllowPrivateAccess = "true"))
 		TObjectPtr<class UMeshComponent> WireframeComponent;
 
-	virtual void BeginPlay() override;
-	virtual void OnConstruction(const FTransform& transform) override;
-	void OnMeshChange(FVector3d OldBoxExtent, FVector3d NewBoxExtent);
+	void OnMeshChange(FVector3d const& OldBoxExtent, FVector3d const& NewBoxExtent) const;
 
 	bool wireframe = false;
 
 private:
-
 	TArray<UMaterialInterface*> originalMaterials;
 	bool simpleMat = false;
 };

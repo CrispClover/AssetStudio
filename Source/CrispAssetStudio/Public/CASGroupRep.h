@@ -35,7 +35,7 @@ public:
 	{
 		Light = light;
 		OriginalColour = light->GetLightColor();
-		if(ACASLocalLight* casLight = Cast<ACASLocalLight>(light))
+		if(ACASLocalLight const* casLight = Cast<ACASLocalLight>(light))
 		{
 			OriginalPitch = casLight->Pitch;
 			OriginalYaw = casLight->Yaw;
@@ -71,7 +71,7 @@ public:
 		void Add(ALight* Light);
 
 	UFUNCTION(BlueprintCallable, Category = "CAS")
-		void Remove(ALight* Light);
+		void Remove(ALight const* Light);
 
 	UFUNCTION(BlueprintCallable, Category = "CAS")
 		void Apply();

@@ -4,7 +4,7 @@
 #include "CASSpotLight.h"
 #include "Components/ArrowComponent.h"
 
-ACASSpotLight::ACASSpotLight(const FObjectInitializer& ObjectInitializer)
+ACASSpotLight::ACASSpotLight(FObjectInitializer const& ObjectInitializer)
 	: Super(ObjectInitializer.SetDefaultSubobjectClass<USpotLightComponent>(TEXT("LightComponent0")))
 {
 	SpotLightComponent = CastChecked<USpotLightComponent>(GetLightComponent());
@@ -18,14 +18,14 @@ ACASSpotLight::ACASSpotLight(const FObjectInitializer& ObjectInitializer)
 	ArrowComponent->bIsScreenSizeScaled = true;
 }
 
-void ACASSpotLight::AdjustDistance(FVector boxDifference)
+void ACASSpotLight::AdjustDistance(FVector const& boxDifference)
 {
 	Super::AdjustDistance(boxDifference);
 
-	FVector wv = GetLightComponent()->GetRightVector() * boxDifference;
-	FVector hv = GetLightComponent()->GetUpVector() * boxDifference;
+	const FVector wv = GetLightComponent()->GetRightVector() * boxDifference;
+	const FVector hv = GetLightComponent()->GetUpVector() * boxDifference;
 	
-	double m = FMath::Max(wv.Length(), hv.Length());
+	const double m = FMath::Max(wv.Length(), hv.Length());
 
 	SpotLightComponent->SetOuterConeAngle(SpotLightComponent->OuterConeAngle * m);
 }

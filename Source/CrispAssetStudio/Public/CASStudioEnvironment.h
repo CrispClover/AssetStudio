@@ -12,6 +12,11 @@ class CRISPASSETSTUDIO_API ACASStudioEnvironment : public AActor
 {
 	GENERATED_UCLASS_BODY()
 
+protected:
+	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaTime) override;
+	virtual void OnConstruction(FTransform const& transform) override;
+
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Studio", meta = (ExposeFunctionCategories = "Mesh,Rendering,Components|StaticMesh", AllowPrivateAccess = "true"))
 		TObjectPtr<class UStaticMeshComponent> Sky;
@@ -20,9 +25,6 @@ private:
 		TObjectPtr<class UStaticMeshComponent> Floor;
 
 public:
-	virtual void Tick(float DeltaTime) override;
-	virtual void OnConstruction(const FTransform& transform) override;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CAS|Meshes")
 		TObjectPtr<UStaticMesh> SkyMesh;
 
@@ -75,7 +77,6 @@ public:
 		bool ToggleUnlitFloor();
 
 protected:
-	virtual void BeginPlay() override;
 	bool visibleFloor = true;
 	bool litFloor = true;
 };

@@ -15,6 +15,9 @@ class CRISPASSETSTUDIO_API ACASCalibrator : public AActor
 {
 	GENERATED_UCLASS_BODY()
 
+protected:
+	virtual void OnConstruction(FTransform const& transform) override;
+
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Studio")
 		TObjectPtr<class UStaticMeshComponent> Calibrator;
@@ -24,9 +27,6 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CAS")
 		FLinearColor SceneColour;
-
-protected:
-	virtual void OnConstruction(const FTransform& transform) override;
 
 private:
 	UCASEditorSubsystem* CAS = nullptr;

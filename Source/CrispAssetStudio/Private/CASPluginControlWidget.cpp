@@ -18,8 +18,7 @@ void UCASPluginControlWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	if (!CAS)
-		CAS = GEditor->GetEditorSubsystem<UCASEditorSubsystem>();
+	CAS = GEditor->GetEditorSubsystem<UCASEditorSubsystem>();
 
 	BuildWidget();
 }
@@ -96,6 +95,11 @@ void UCASPluginControlWidget::BuildWidget()
 		renderAll->SetToolTipText(FText::FromString("Creates Sequences for all cameras and queues them for rendering with the Movie Render Queue."));
 		PluginControlsBox->AddChildToWrapBox(renderAll);
 
+		/*UButton* renderMat = BuildButton(FText::FromString("Queue Materials"), UButton::StaticClass());
+		renderMat->OnClicked.AddDynamic(this, &UCASPluginControlWidget::QueueMaterialRenders);
+		renderMat->SetToolTipText(FText::FromString("Creates Sequences for all selected materials and queues them for rendering with the Movie Render Queue."));
+		PluginControlsBox->AddChildToWrapBox(renderMat);*/
+
 		for (UPanelSlot* ps : PluginControlsBox->GetSlots())
 		{
 			if (UWrapBoxSlot* ws = Cast<UWrapBoxSlot>(ps))
@@ -107,12 +111,14 @@ void UCASPluginControlWidget::BuildWidget()
 	}
 }
 
-UButton* UCASPluginControlWidget::BuildButton(FText buttonLabel, TSubclassOf<UButton> buttonClass)//TODO: add a class for this?
+UButton* UCASPluginControlWidget::BuildButton(FText const& buttonLabel, const TSubclassOf<UButton> buttonClass)//TODO: add a class for this?
 {
 	UButton* button = WidgetTree->ConstructWidget<UButton>(buttonClass);
 	UTextBlock* label = WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass());
 	label->SetText(buttonLabel);
-	label->Font.Size = 15;
+	FSlateFontInfo fontInfo = label->GetFont();
+	fontInfo.Size = 15;
+	label->SetFont(fontInfo);
 	button->AddChild(label);
 
 	return button;
