@@ -14,7 +14,7 @@ If you encounter bugs, or need support in rebuilding the plugin for a different 
 
 [Unreal Forums](https://forums.unrealengine.com/t/asset-studio/)
 
-[Twitter](https://twitter.com/crispclover)
+[Bsky](https://bsky.app/profile/crispclover.com)
 
 ___
 
